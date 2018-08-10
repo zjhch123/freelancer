@@ -1,4 +1,4 @@
-# freelance
+# freelancer
 
 ## Project setup
 ```
