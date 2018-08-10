@@ -36,6 +36,7 @@ export default {
     top: 0;
     bottom: 0;
     z-index: 2;
+    font-size: .2rem;
   }
 }
 </style>
