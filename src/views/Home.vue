@@ -17,7 +17,7 @@
       </Banner>
     </div>
     <main class="m-list">
-      <p class="u-list-tlt">优秀推荐</p>
+      <SubTitle>优秀推荐</SubTitle>
       <div class="u-person" v-for="(tempPerson, index) in tempPersons" :key="index">
         <SimpleInfo 
           :person="tempPerson"/>
@@ -36,6 +36,7 @@
 import Banner from '@/components/Banner.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import SimpleInfo from '@/components/SimpleInfo.vue'
+import SubTitle from '@/components/SubTitle.vue'
 export default {
   name: 'home',
   data() {
@@ -74,7 +75,7 @@ export default {
     }
   },
   components: {
-    Banner, SearchBar, SimpleInfo
+    Banner, SearchBar, SimpleInfo, SubTitle
   },
   methods: {
     searchBarClick() {

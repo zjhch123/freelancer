@@ -21,19 +21,7 @@
       </div>
     </Banner>
     <main>
-      <p class="u-title">&nbsp;</p>
-      <div>
-        <router-link class="link-item" to="/me/index">我的主页</router-link>
-      </div>
-      <div>
-        <router-link class="link-item" to="/me/edit">主页编辑</router-link>
-      </div>
-      <div>
-        <router-link class="link-item" to="/me/message">我的消息</router-link>
-      </div>
-      <div>
-        <router-link class="link-item" to="/me/settings">通用设置</router-link>
-      </div>
+      <router-view></router-view>
     </main>
   </div>
 </template>
@@ -92,19 +80,5 @@ export default {
     overflow: hidden;
     white-space: nowrap;
   }
-}
-.u-title {
-  line-height: .6rem;
-  height: .6rem;
-  border-bottom: 1px solid #c8c8c8;
-}
-.link-item {
-  line-height: 1.47rem;
-  height: 1.47rem;
-  display: block;
-  text-align: center;
-  font-size: .24rem;
-  color: #7b7b7b;
-  border-bottom: 1px solid #c8c8c8;
 }
 </style>

@@ -4,7 +4,7 @@
       <SearchBar />
     </div>
     <main class="m-list">
-      <p class="u-list-tlt">优秀推荐</p>
+      <SubTitle>中传电影创作人平台</SubTitle>
       <div class="u-person" v-for="(tempPerson, index) in tempPersons" :key="index">
         <SimpleInfo 
           :person="tempPerson"/>
@@ -15,6 +15,7 @@
 <script>
 import SearchBar from '@/components/SearchBar'
 import SimpleInfo from '@/components/SimpleInfo.vue'
+import SubTitle from '@/components/SubTitle.vue'
 export default {
   data() {
     return {
@@ -52,7 +53,7 @@ export default {
     }
   },
   components: {
-    SearchBar, SimpleInfo
+    SearchBar, SimpleInfo, SubTitle
   }
 }
 </script>
@@ -64,14 +65,6 @@ export default {
   }
   .m-list {
     min-height: 4rem;
-    .u-list-tlt {
-      padding-left: .4rem;
-      line-height: .7rem;
-      text-align: left;
-      font-size: .2rem;
-      font-weight: bolder;
-      border-bottom: 1px solid #c8c8c8;
-    }
     .u-person {
       border-bottom: 1px solid #c8c8c8;
     }
