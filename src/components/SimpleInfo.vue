@@ -1,7 +1,7 @@
 <template>
   <div class="m-person">
     <div class="u-left">
-      <img :src="person.header" class="header">
+      <UserHeader :src="person.header" :width="1.6"/>
     </div>
     <div class="u-right">
       <p class="name f-text-overflow">{{person.name}}</p>
@@ -18,7 +18,11 @@
   </div>
 </template>
 <script>
+import UserHeader from '@/components/UserHeader'
 export default {
+  components: {
+    UserHeader
+  },
   computed: {
     hasJob() {
       return this.person.jobs !== null && this.person.jobs.length !== 0
@@ -42,12 +46,6 @@ export default {
     padding: .3rem .7rem;
     .u-left {
       flex: 0 0 1.6rem;
-      .header {
-        display: block;
-        width: 1.6rem;
-        height: 1.6rem;
-        border-radius: 50%;
-      }
     }
     .u-right {
       flex: 1 1 auto;

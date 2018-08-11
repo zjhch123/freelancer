@@ -1,20 +1,7 @@
 <template>
-  <div class="g-home">
-    <div class="m-banner">
-      <Banner 
-        :width="7.5"
-        :height="5.28"
-        :imagePath="require('../assets/home-banner.png')">
-        <div class="m-logo">
-          <p class="u-tlt">FREELANCER</p>
-          <p class="u-sub">-中传电影创作人平台-</p>
-        </div>
-        <div class="u-search">
-          <SearchBar 
-            :readonly="true"
-            :onClick="this.searchBarClick" />
-        </div>
-      </Banner>
+  <div class="g-search">
+    <div class="m-searchBar">
+      <SearchBar />
     </div>
     <main class="m-list">
       <p class="u-list-tlt">优秀推荐</p>
@@ -23,21 +10,12 @@
           :person="tempPerson"/>
       </div>
     </main>
-    <div class="m-banner">
-      <Banner 
-        :width="7.5"
-        :height="4.38"
-        :imagePath="require('../assets/home-banner2.png')" />
-    </div>
   </div>
 </template>
 <script>
-// @ is an alias to /src
-import Banner from '@/components/Banner.vue'
-import SearchBar from '@/components/SearchBar.vue'
+import SearchBar from '@/components/SearchBar'
 import SimpleInfo from '@/components/SimpleInfo.vue'
 export default {
-  name: 'home',
   data() {
     return {
       tempPersons: [{
@@ -74,37 +52,15 @@ export default {
     }
   },
   components: {
-    Banner, SearchBar, SimpleInfo
-  },
-  methods: {
-    searchBarClick() {
-      this.$router.push({ name: 'search' })
-    },
+    SearchBar, SimpleInfo
   }
 }
 </script>
 <style lang="scss" scoped>
-.g-home {
-  position: relative;
-  .m-banner {
-    position: relative;
-    .m-logo {
-      color: white;
-      text-align: left;
-      margin-top: 1.5rem;
-      margin-left: .8rem;
-      .u-tlt {
-        font-size: .62rem;
-        display: table;
-      }
-      .u-sub {
-        display: table;
-        font-size: .2rem;
-      }
-    }
-    .u-search {
-      margin-top: 1.54rem;
-    }
+.g-search {
+  .m-searchBar {
+    background: #dedede;
+    padding: .3rem .7rem;
   }
   .m-list {
     min-height: 4rem;
@@ -122,4 +78,3 @@ export default {
   }
 }
 </style>
-

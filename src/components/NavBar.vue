@@ -69,6 +69,7 @@
   }
   &:after {
     background: linear-gradient(white, #d1cfcf);
+    filter: url(../assets/blur.svg#blur);
     filter: blur(10px);
     content: '';
     width: 100%;

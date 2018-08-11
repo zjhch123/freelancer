@@ -1,6 +1,6 @@
 <template>
 <div class="g-banner" :style="{ width: `${width}rem`, height: `${height}rem` }">
-  <img :src="imagePath" class="u-bg">
+  <img :src="imagePath" class="u-bg" :style="imageStyle">
   <div class="m-inner">
     <slot></slot>
   </div>
@@ -18,12 +18,16 @@ export default {
     'imagePath': {
       type: String,
       required: true
+    },
+    'imageStyle': {
+      type: Object
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .g-banner {
+  position: relative;
   .u-bg {
     display: block;
     width: 100%;
