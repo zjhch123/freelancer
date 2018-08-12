@@ -28,7 +28,7 @@
       </SimpleRow>
       <SimpleRow className="u-row" name="个人介绍">
         <div class="flexable">
-          <textarea contenteditable="true" class="u-input"  rows="6" cols="32"></textarea>
+          <textarea contenteditable="true" class="u-input"></textarea>
         </div>
       </SimpleRow>
       <SimpleRow className="u-row" name="主要职业">
