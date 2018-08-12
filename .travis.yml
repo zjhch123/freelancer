@@ -9,7 +9,7 @@ cache:
 install:
 - npm install
 after_success:
-- ssh root@139.129.132.196 StrictHostKeyChecking=no 'cd /var/www/static/freelancer/ &&
+- ssh root@139.129.132.196 StrictHostKeyChecking=no 'cd /var/packages/freelancer/ &&
   git pull && sh ./deploy.sh'
 before_install:
 - openssl aes-256-cbc -K $encrypted_509f0dcd4e62_key -iv $encrypted_509f0dcd4e62_iv
