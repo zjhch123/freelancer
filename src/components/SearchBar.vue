@@ -14,6 +14,9 @@ export default {
   data: () => ({
     inputValue: ''
   }),
+  created() {
+    this.inputValue = this.defaultValue
+  },
   methods: {
     handleClick() {
       this.onClick()
@@ -30,6 +33,9 @@ export default {
     }
   },
   props: {
+    defaultValue: {
+      type: String
+    },
     onClick: {
       type: Function,
       default: () => {
@@ -72,7 +78,7 @@ export default {
     line-height: .5rem;
     text-align: center;
     background-color: #a8c6da;
-    color: black;
+    color: white;
   }
 }
 </style>

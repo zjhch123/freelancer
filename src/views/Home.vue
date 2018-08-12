@@ -10,24 +10,32 @@
           <p class="u-sub">-中传电影创作人平台-</p>
         </div>
         <div class="u-search">
-          <SearchBar 
-            :readonly="true"
-            :onClick="this.searchBarClick" />
+            <SearchBar 
+              :onSearch="this.search" />
         </div>
       </Banner>
     </div>
     <main class="m-list">
       <SubTitle>优秀推荐</SubTitle>
       <div class="u-person" v-for="(tempPerson, index) in tempPersons" :key="index">
-        <SimpleInfo 
-          :person="tempPerson"/>
+        <BlockRouter :to="`/user/${tempPerson.id}`">
+          <SimpleInfo 
+            :person="tempPerson"/>
+        </BlockRouter>
       </div>
     </main>
     <div class="m-banner">
       <Banner 
         :width="7.5"
         :height="4.38"
-        :imagePath="require('../assets/home-banner2.png')" />
+        :imagePath="require('../assets/home-banner2.png')">
+        <div class="m-status">
+          <div class="u-status">
+            <p class="tlt">电影创作人</p>
+            <p class="num">999</p>
+          </div>
+        </div>
+      </Banner>
     </div>
   </div>
 </template>
@@ -37,35 +45,29 @@ import Banner from '@/components/Banner.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import SimpleInfo from '@/components/SimpleInfo.vue'
 import SubTitle from '@/components/SubTitle.vue'
+import BlockRouter from '@/components/BlockRouter.vue'
 export default {
   name: 'home',
   data() {
     return {
       tempPersons: [{
+        id: 123,
         header: require('../assets/demo_person.png'),
         name: '小助手',
         jobs: ['导演', '编剧'],
         desc: '中传2014级导演系（剪辑方向）',
         samples: ['《寻龙诀》', '《封神》']
-      },{
+      },
+      {
+        id: 123,
         header: require('../assets/demo_person.png'),
         name: '小助手',
         jobs: ['导演', '编剧'],
         desc: '中传2014级导演系（剪辑方向）',
         samples: ['《寻龙诀》', '《封神》']
-      },{
-        header: require('../assets/demo_person.png'),
-        name: '小助手',
-        jobs: ['导演', '编剧'],
-        desc: '中传2014级导演系（剪辑方向）',
-        samples: ['《寻龙诀》', '《封神》']
-      },{
-        header: require('../assets/demo_person.png'),
-        name: '小助手',
-        jobs: ['导演', '编剧'],
-        desc: '中传2014级导演系（剪辑方向）',
-        samples: ['《寻龙诀》', '《封神》']
-      },{
+      },
+      {
+        id: 123,
         header: require('../assets/demo_person.png'),
         name: '小助手',
         jobs: ['导演', '编剧'],
@@ -75,11 +77,11 @@ export default {
     }
   },
   components: {
-    Banner, SearchBar, SimpleInfo, SubTitle
+    Banner, SearchBar, SimpleInfo, SubTitle, BlockRouter
   },
   methods: {
-    searchBarClick() {
-      this.$router.push({ name: 'search' })
+    search(val) {
+      this.$router.push({ name: 'search', query: { q: val } })
     },
   }
 }
@@ -117,8 +119,54 @@ export default {
       font-weight: bolder;
       border-bottom: 1px solid #c8c8c8;
     }
+    .u-user-link {
+      display: block;
+    }
     .u-person {
       border-bottom: 1px solid #c8c8c8;
+    }
+  }
+  .m-status {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.6);
+    .u-status {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 3rem;
+      height: 3rem;
+      display: block;
+      border-radius: 50%;
+      border: .07rem solid rgba(255, 255, 255, .17);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      &:before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 50%;
+        border: .26rem solid rgba(255, 255, 255, .05);
+        content: '';
+      }
+      .tlt { 
+        font-size: .2rem;
+        font-weight: bolder;
+      }
+      .num {
+        font-size: .66rem;
+        font-weight: bolder;
+      }
     }
   }
 }

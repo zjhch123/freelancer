@@ -4,14 +4,14 @@
       <img src="../assets/nav-home.png" class="icon">
       <p class="text">首页</p>
     </router-link>
-    <router-link class="u-item u-creator" to="/creator">
+    <router-link class="u-item u-creator" to="/search?type=default">
       <img src="../assets/nav-creator.png" class="icon">
       <p class="text">创作人</p>
     </router-link>
-    <router-link class="u-item u-story" to="/story">
+    <a class="u-item u-story" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUzOTkyMDM1Ng==#wechat_redirect">
       <img src="../assets/nav-story.png" class="icon">
       <p class="text">故事</p>
-    </router-link>
+    </a>
     <router-link class="u-item u-me" to="/me">
       <img src="../assets/nav-me.png" class="icon">
       <p class="text">我的</p>

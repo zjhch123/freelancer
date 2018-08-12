@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import Search from './views/Search.vue'
 import Edit from './views/Edit.vue'
 import Message from './views/Message.vue'
+import User from './views/User.vue'
+import User_Index from './views/User/Index.vue'
 import Me from './views/Me.vue'
 import Me_Index from './views/Me/Index.vue'
 import Me_Profile from './views/Me/Profile.vue'
@@ -28,6 +30,18 @@ export default new Router({
       path: '/edit',
       name: 'edit',
       component: Edit
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: User,
+      children: [
+        {
+          path: '',
+          name: 'user_index',
+          component: User_Index
+        }
+      ]
     },
     {
       path: '/message',

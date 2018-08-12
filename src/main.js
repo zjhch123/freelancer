@@ -4,6 +4,10 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+router.afterEach(() => {
+  window.scrollTo(0, 0)
+})
+
 new Vue({
   router,
   render: h => h(App)
