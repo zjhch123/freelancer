@@ -13,5 +13,5 @@ after_success:
   git pull && sh ./deploy.sh'
 before_install:
 - openssl aes-256-cbc -K $encrypted_509f0dcd4e62_key -iv $encrypted_509f0dcd4e62_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
