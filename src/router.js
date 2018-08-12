@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Search from './views/Search.vue'
 import Edit from './views/Edit.vue'
+import Message from './views/Message.vue'
 import Me from './views/Me.vue'
 import Me_Index from './views/Me/Index.vue'
 import Me_Profile from './views/Me/Profile.vue'
@@ -27,6 +28,11 @@ export default new Router({
       path: '/edit',
       name: 'edit',
       component: Edit
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: Message
     },
     {
       path: '/me',
