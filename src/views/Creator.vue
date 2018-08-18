@@ -2,7 +2,7 @@
   <div class="g-search">
     <div class="m-searchBar">
       <SearchBar 
-        :defaultValue="this.inputValue"
+        defaultValue=""
         :onSearch="this.onSearch"/>
     </div>
     <main class="m-list">
@@ -21,7 +21,7 @@ import SearchBar from '@/components/SearchBar'
 import SimpleInfo from '@/components/SimpleInfo.vue'
 import SubTitle from '@/components/SubTitle.vue'
 import BlockRouter from '@/components/BlockRouter.vue'
-import { search } from '../api'
+import { getRecommendUser } from '../api'
 import _ from 'lodash'
 export default {
   data() {
@@ -33,17 +33,11 @@ export default {
       listenerFunc: 0,
     }
   },
-  created() {
-    this.inputValue = this.$route.query.q || ''
-  },
   async mounted() {
     this.listenerFunc = _.debounce(this.fetchNextPage, 200)
     window.addEventListener('scroll', this.listenerFunc) // 滚到底部的懒加载
-    
+
     await this.getData(this.page)
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.listenerFunc)
   },
   components: {
     SearchBar, SimpleInfo, SubTitle, BlockRouter
@@ -61,7 +55,6 @@ export default {
           q: this.inputValue
         }
       })
-      await this.getData(this.page)
     },
     fetchNextPage() {
       const totalHeight = document.documentElement.offsetHeight
@@ -75,7 +68,7 @@ export default {
     async getData(page, count = this.count, callback = () => {}) {
       let result = null
       this.page = page
-      result = await search(this.inputValue, page, count)
+      result = await getRecommendUser(page, count)
       if (result.code === 200) {
         const {
           totalPage,

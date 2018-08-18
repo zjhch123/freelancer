@@ -17,7 +17,7 @@ export default {
     },
     'imagePath': {
       type: String,
-      required: true
+      default: '',
     },
     'imageStyle': {
       type: Object
@@ -28,13 +28,20 @@ export default {
 <style lang="scss" scoped>
 .g-banner {
   position: relative;
+  overflow: hidden;
   .u-bg {
     display: block;
     width: 100%;
     height: 100%;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
   .m-inner {
     position: absolute;
+    z-index: 3;
     left: 0;
     right: 0;
     top: 0;

@@ -15,7 +15,7 @@
             {{person.desc}}
           </p>
           <p class="sample f-text-overflow" v-if="hasSample">
-            代表作: {{person.samples.join(' ')}}
+            代表作: {{person.productions.join(' ')}}
           </p>
         </div>
       </div>
@@ -36,7 +36,7 @@ export default {
         name: '小助手',
         jobs: ['导演', '编剧'],
         desc: '中传2014级导演系（剪辑方向）',
-        samples: ['《寻龙诀》', '《封神》']
+        productions: ['《寻龙诀》', '《封神》']
       }
     }
   },
@@ -48,7 +48,7 @@ export default {
       return this.person.desc !== null && this.person.desc.trim() !== ''
     },
     hasSample() {
-      return this.person.samples !== null && this.person.samples.length !== 0
+      return this.person.productions !== null && this.person.productions.length !== 0
     }
   },
   components: {

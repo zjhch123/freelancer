@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Search from './views/Search.vue'
+import Creator from './views/Creator.vue'
 import Edit from './views/Edit.vue'
 import Message from './views/Message.vue'
 import User from './views/User.vue'
@@ -27,19 +28,23 @@ export default new Router({
       component: Search
     },
     {
+      path: '/creator',
+      name: 'creator',
+      component: Creator
+    },
+    {
       path: '/edit',
       name: 'edit',
       component: Edit
     },
     {
       path: '/user/:id',
-      name: 'user',
       component: User,
       children: [
         {
           path: '',
-          name: 'user_index',
-          component: User_Index
+          name: 'user',
+          component: User_Index,
         }
       ]
     },
@@ -50,7 +55,6 @@ export default new Router({
     },
     {
       path: '/me',
-      name: 'me',
       component: Me,
       children: [
         {

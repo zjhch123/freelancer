@@ -4,7 +4,7 @@
       <img src="../assets/nav-home.png" class="icon">
       <p class="text">首页</p>
     </router-link>
-    <router-link class="u-item u-creator" to="/search?type=default">
+    <router-link class="u-item u-creator" to="/creator">
       <img src="../assets/nav-creator.png" class="icon">
       <p class="text">创作人</p>
     </router-link>
@@ -18,6 +18,8 @@
     </router-link>
   </div>
 </template>
+<script>
+</script>
 <style lang="scss" scoped>
 #nav {
   z-index: 50;

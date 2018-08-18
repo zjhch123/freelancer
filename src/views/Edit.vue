@@ -22,8 +22,10 @@
         </div>
       </SimpleRow>
       <SimpleRow className="u-row" name="院校专业">
-        <div class="flexable">
-          <input type="text" class="u-input"/>
+        <div class="flexable space">
+          <input type="text" class="u-input u-input1of3" placeholder="学校"/>
+          <input type="text" class="u-input u-input1of3" placeholder="年级"/>
+          <input type="text" class="u-input u-input1of3" placeholder="专业"/>
         </div>
       </SimpleRow>
       <SimpleRow className="u-row" name="个人介绍">

@@ -1,10 +1,10 @@
 <template>
   <div class="m-person">
     <div class="u-left">
-      <UserHeader :src="person.header" :width="1.6"/>
+      <UserHeader :src="person.header || require('../assets/demo_person.png')" :width="1.6"/>
     </div>
     <div class="u-right">
-      <p class="name f-text-overflow">{{person.name}}</p>
+      <p class="name f-text-overflow">{{person.name || '匿名电影人'}}</p>
       <p class="job f-text-overflow" v-if="hasJob">
         {{person.jobs.join(' ')}}
       </p>
@@ -12,7 +12,7 @@
         {{person.desc}}
       </p>
       <p class="sample f-text-overflow" v-if="hasSample">
-        代表作: {{person.samples.join(' ')}}
+        代表作: {{person.productions.join(' ')}}
       </p>
     </div>
   </div>
@@ -25,13 +25,13 @@ export default {
   },
   computed: {
     hasJob() {
-      return this.person.jobs !== null && this.person.jobs.length !== 0
+      return !!this.person.jobs && this.person.jobs.length !== 0
     },
     hasDesc() {
-      return this.person.desc !== null && this.person.desc.trim() !== ''
+      return !!this.person.desc && this.person.desc.trim() !== ''
     },
     hasSample() {
-      return this.person.samples !== null && this.person.samples.length !== 0
+      return !!this.person.productions && this.person.productions.length !== 0
     }
   },
   props: {
@@ -62,6 +62,7 @@ export default {
       .job, .desc, .sample {
         font-size: .2rem;
         color: #7b7b7b;
+        max-width: 7rem;
       }
     }
   }

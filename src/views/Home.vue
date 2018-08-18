@@ -17,10 +17,10 @@
     </div>
     <main class="m-list">
       <SubTitle>优秀推荐</SubTitle>
-      <div class="u-person" v-for="(tempPerson, index) in tempPersons" :key="index">
-        <BlockRouter :to="`/user/${tempPerson.id}`">
+      <div class="u-person" v-for="(person) in persons" :key="person.id">
+        <BlockRouter :to="`/user/${person.id}`">
           <SimpleInfo 
-            :person="tempPerson"/>
+            :person="person"/>
         </BlockRouter>
       </div>
     </main>
@@ -32,7 +32,7 @@
         <div class="m-status">
           <div class="u-status">
             <p class="tlt">电影创作人</p>
-            <p class="num">999</p>
+            <p class="num">{{this.content}}</p>
           </div>
         </div>
       </Banner>
@@ -40,46 +40,59 @@
   </div>
 </template>
 <script>
-// @ is an alias to /src
 import Banner from '@/components/Banner.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import SimpleInfo from '@/components/SimpleInfo.vue'
 import SubTitle from '@/components/SubTitle.vue'
 import BlockRouter from '@/components/BlockRouter.vue'
+import { getHotUser, getUserCount } from '../api/'
+import Cookie from 'js-cookie'
 export default {
   name: 'home',
+  mounted() {
+    this.initHotUser()
+    this.initCount()
+  },
   data() {
     return {
-      tempPersons: [{
-        id: 123,
-        header: require('../assets/demo_person.png'),
-        name: '小助手',
-        jobs: ['导演', '编剧'],
-        desc: '中传2014级导演系（剪辑方向）',
-        samples: ['《寻龙诀》', '《封神》']
-      },
-      {
-        id: 123,
-        header: require('../assets/demo_person.png'),
-        name: '小助手',
-        jobs: ['导演', '编剧'],
-        desc: '中传2014级导演系（剪辑方向）',
-        samples: ['《寻龙诀》', '《封神》']
-      },
-      {
-        id: 123,
-        header: require('../assets/demo_person.png'),
-        name: '小助手',
-        jobs: ['导演', '编剧'],
-        desc: '中传2014级导演系（剪辑方向）',
-        samples: ['《寻龙诀》', '《封神》']
-      }]
+      persons: [],
+      content: 0
+    }
+  },
+  created() {
+    const openId = this.$router.history.current.query.openId
+    if (openId !== undefined) {
+      Cookie.set('user_id', openId)
+      this.$router.push({
+        name: 'home',
+        query: ''
+      })
     }
   },
   components: {
     Banner, SearchBar, SimpleInfo, SubTitle, BlockRouter
   },
   methods: {
+    async initHotUser() {
+      const result = await getHotUser(3)
+      if (result.code === 200) {
+        const formatted = result.content.list.map(item => ({
+          ...item,
+          desc: `${item.school} ${item.grade} ${item.major}`
+        }))
+        this.persons = formatted
+      } else {
+        // TODO error handler
+      }
+    },
+    async initCount() {
+      const result = await getUserCount()
+      if (result.code === 200) {
+        this.content = result.content
+      } else {
+        // TODO error handler
+      }
+    },
     search(val) {
       this.$router.push({ name: 'search', query: { q: val } })
     },
