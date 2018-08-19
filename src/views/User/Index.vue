@@ -32,18 +32,24 @@ export default {
         jobs: [],
         desc: '',
         productions: []
-      }
+      },
+      listenerFunc: null
     }
   },
   components: {
     SimpleRow, SubTitle
   },
   mounted() {
-    this.EventEmit.on('user_launched', (person) => {
+    this.listenerFunc = (person) => {
       this.detail = person.detail
       this.person = person
-    })
+    }
+    this.EventEmit.on('user_launched', this.listenerFunc)
+    this.EventEmit.emit('need_user_data', this.listenerFunc)
   },
+  beforeDestroy() {
+    this.EventEmit.removeListener('user_launched', this.listenerFunc)
+  }
 }
 </script>
 <style lang="scss" scoped>

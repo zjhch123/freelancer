@@ -23,4 +23,12 @@ export default {
   color: #2c3e50;
   padding-bottom: 1.1rem;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 </style>

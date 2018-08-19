@@ -42,7 +42,8 @@ export default {
         name: '',
         jobs: [],
         desc: '',
-        productions: []
+        productions: [],
+        introduction: ''
       }
     }
   },

@@ -7,11 +7,14 @@
     </div>
     <main class="m-list">
       <SubTitle>中传电影创作人平台</SubTitle>
-      <div class="u-person" v-for="person in persons" :key="person.id">
+      <div class="u-person" v-for="person in persons" :key="person.id" v-if="!noLogin">
         <BlockRouter :to="`/user/${person.id}`">
           <SimpleInfo 
             :person="person"/>
         </BlockRouter>
+      </div>
+      <div v-if="noLogin" class="m-nologin">
+        <NoLogin></NoLogin>
       </div>
     </main>
   </div>
@@ -21,6 +24,7 @@ import SearchBar from '@/components/SearchBar'
 import SimpleInfo from '@/components/SimpleInfo.vue'
 import SubTitle from '@/components/SubTitle.vue'
 import BlockRouter from '@/components/BlockRouter.vue'
+import NoLogin from '@/components/NoLogin.vue'
 import { getRecommendUser } from '../api'
 import _ from 'lodash'
 export default {
@@ -31,6 +35,7 @@ export default {
       totalPage: 1,
       page: 1,
       listenerFunc: 0,
+      noLogin: false
     }
   },
   async mounted() {
@@ -40,7 +45,7 @@ export default {
     await this.getData(this.page)
   },
   components: {
-    SearchBar, SimpleInfo, SubTitle, BlockRouter
+    SearchBar, SimpleInfo, SubTitle, BlockRouter, NoLogin
   },
   methods: {
     async onSearch(val) {
@@ -79,7 +84,13 @@ export default {
         this.totalPage = totalPage
         callback()
       } else {
-        // TODO error handle
+        switch (result.code) {
+          case 401:
+            this.noLogin = true
+            break
+          default:
+            // TODO
+        }
       }
     },
     getNextPageData() {
@@ -100,6 +111,9 @@ export default {
     .u-person {
       border-bottom: 1px solid #c8c8c8;
     }
+  }
+  .m-nologin {
+    margin-top: 1rem;
   }
 }
 </style>

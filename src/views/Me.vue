@@ -1,44 +1,87 @@
 <template>
   <div class="g-me">
-    <Banner
-      :imagePath="require('../assets/demo_person2.png')"
-      :width="7.5"
-      :height="5.32">
-      <div class="m-user">
-        <UserHeader :src="person.header" :width="1.6"/>
-        <div class="u-info">
-          <p class="name f-text-overflow">{{person.name}}</p>
-          <p class="job f-text-overflow" v-if="hasJob">
-            {{person.jobs.join(' ')}}
-          </p>
-          <p class="desc f-text-overflow" v-if="hasDesc">
-            {{person.desc}}
-          </p>
-          <p class="sample f-text-overflow" v-if="hasSample">
-            代表作: {{person.productions.join(' ')}}
-          </p>
+    <div class="m-login" v-if="!noLogin">
+      <Banner
+        :imagePath="person.header || require('../assets/demo_person2.png')"
+        :width="7.5"
+        :height="5.32"
+        :imageStyle="{width: '7.5rem', height: '7.5rem', filter: 'blur(10px)'}">
+        <div class="m-user">
+          <UserHeader :src="person.header" :width="1.6"/>
+          <div class="u-info">
+            <p class="name f-text-overflow">{{person.name}}</p>
+            <p class="job f-text-overflow" v-if="hasJob">
+              {{person.jobs.join(' ')}}
+            </p>
+            <p class="desc f-text-overflow" v-if="hasDesc">
+              {{person.desc}}
+            </p>
+            <p class="sample f-text-overflow" v-if="hasSample">
+              代表作: {{person.productions.join(' ')}}
+            </p>
+          </div>
         </div>
-      </div>
-    </Banner>
-    <main>
-      <router-view></router-view>
-    </main>
+      </Banner>
+      <main>
+        <router-view></router-view>
+      </main>
+    </div>
+    <div class="m-nologin" v-if="noLogin">
+      <NoLogin></NoLogin>
+    </div>
   </div>
 </template>
 <script>
 import Banner from '@/components/Banner'
 import UserHeader from '@/components/UserHeader'
+import NoLogin from '@/components/NoLogin'
+import { getMyInfo } from '../api'
 export default {
   data() {
     return {
+      noLogin: false,
+      detail: {
+        city: '',
+        job: '',
+        production: ''
+      },
       person: {
         header: require('../assets/demo_person.png'),
-        name: '小助手',
-        jobs: ['导演', '编剧'],
-        desc: '中传2014级导演系（剪辑方向）',
-        productions: ['《寻龙诀》', '《封神》']
+        name: '电影人',
+        jobs: [],
+        desc: '',
+        productions: []
+      },
+      listenerFunc: null
+    }
+  },
+  async mounted() {
+    this.listenerFunc = () => this.EventEmit.emit('me_launched', {...this.person, detail: {...this.detail}})
+    this.EventEmit.on('need_me_data', this.listenerFunc)
+    const result = await getMyInfo()
+    if (result.code === 200) {
+      if(result.content === null) {
+        return
+      }
+      const person = result.content
+      this.person = {
+        ...person,
+        desc: `${person.school} ${person.grade} ${person.major}`
+      }
+      this.detail = person.detail
+      this.listenerFunc()
+    } else {
+      switch (result.code) {
+        case 401:
+          this.noLogin = true
+          break
+        default:
+          // TODO
       }
     }
+  },
+  beforeDestroy() {
+    this.EventEmit.removeListener('need_me_data', this.listenerFunc)
   },
   computed: {
     hasJob() {
@@ -52,7 +95,7 @@ export default {
     }
   },
   components: {
-    Banner, UserHeader
+    Banner, UserHeader, NoLogin
   }
 }
 </script>
@@ -80,5 +123,8 @@ export default {
     overflow: hidden;
     white-space: nowrap;
   }
+}
+.m-nologin {
+  margin-top: 2rem;
 }
 </style>

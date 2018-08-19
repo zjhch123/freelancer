@@ -3,14 +3,14 @@
     <SubTitle>&nbsp;</SubTitle>
     <main>
       <div class="m-info">
-        <SimpleRow name="常住城市：">北京 上海</SimpleRow>
-        <SimpleRow name="院校毕业：">中传2014级导演系（剪辑方向）</SimpleRow>
-        <SimpleRow name="主要职业：">导演 编剧</SimpleRow>
-        <SimpleRow name="从事职业：">导演 编剧 剪辑师 演员 策划 设计师</SimpleRow>
+        <SimpleRow name="常住城市：">{{detail.city}}</SimpleRow>
+        <SimpleRow name="院校毕业：">{{person.school}} {{person.grade}} {{person.major}}</SimpleRow>
+        <SimpleRow name="主要职业：">{{person.jobs.join(' ')}}</SimpleRow>
+        <SimpleRow name="从事职业：">{{detail.job}}</SimpleRow>
       </div>
       <div class="m-info">
-        <SimpleRow name="代表作品：">《寻龙诀》 《封神》</SimpleRow>
-        <SimpleRow name="主要作品：">2014年《寻龙诀》导演<br>2020年《封神》导演</SimpleRow>
+        <SimpleRow name="代表作品：">{{person.productions.join(' ')}}</SimpleRow>
+        <SimpleRow name="主要作品：">{{detail.production}}</SimpleRow>
       </div>
     </main>
   </div>
@@ -21,17 +21,35 @@ import SimpleRow from '@/components/SimpleRow'
 export default {
   data() {
     return {
+      detail: {
+        city: '',
+        job: '',
+        production: ''
+      },
       person: {
-        header: require('../../assets/demo_person.png'),
-        name: '小助手',
-        jobs: ['导演', '编剧'],
-        desc: '中传2014级导演系（剪辑方向）',
-        samples: ['《寻龙诀》', '《封神》']
-      }
+        header: '',
+        name: '',
+        jobs: [],
+        desc: '',
+        productions: [],
+        introduction: ''
+      },
+      listenerFunc: null
     }
   },
   components: {
     SimpleRow, SubTitle
+  },
+  mounted() {
+    this.listenerFunc = (person) => {
+      this.detail = person.detail
+      this.person = person
+    }
+    this.EventEmit.on('me_launched', this.listenerFunc)
+    this.EventEmit.emit('need_me_data')
+  },
+  beforeDestroy() {
+    this.EventEmit.removeListener('me_launched', this.listenerFunc)
   }
 }
 </script>
