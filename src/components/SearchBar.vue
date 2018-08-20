@@ -79,6 +79,7 @@ export default {
     text-align: center;
     background-color: #a8c6da;
     color: white;
+    font-size: .2rem;
   }
 }
 </style>
