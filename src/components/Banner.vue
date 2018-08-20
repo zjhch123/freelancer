@@ -1,6 +1,7 @@
 <template>
 <div class="g-banner" :style="{ width: `${width}rem`, height: `${height}rem` }">
   <img :src="imagePath" class="u-bg" :style="imageStyle">
+  <img :src="imagePath" class="u-bg u-bg-repeat" v-if="repeat" :style="repeatStyle">
   <div class="m-inner">
     <slot></slot>
   </div>
@@ -21,6 +22,13 @@ export default {
     },
     'imageStyle': {
       type: Object
+    },
+    'repeatStyle': {
+      type: Object
+    },
+    repeat: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -46,7 +54,6 @@ export default {
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 2;
     font-size: .2rem;
   }
 }

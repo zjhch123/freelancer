@@ -3,14 +3,19 @@
     <SubTitle>&nbsp;</SubTitle>
     <main>
       <div class="m-info">
+        <SimpleRow name="个人介绍：">{{person.introduction}}</SimpleRow>
         <SimpleRow name="常住城市：">{{detail.city}}</SimpleRow>
-        <SimpleRow name="院校毕业：">{{person.school}} {{person.grade}} {{person.major}}</SimpleRow>
+        <SimpleRow name="院校专业：">{{person.school}} {{person.grade}} {{person.major}}</SimpleRow>
         <SimpleRow name="主要职业：">{{person.jobs.join(' ')}}</SimpleRow>
         <SimpleRow name="从事职业：">{{detail.job}}</SimpleRow>
       </div>
       <div class="m-info">
         <SimpleRow name="代表作品：">{{person.productions.join(' ')}}</SimpleRow>
-        <SimpleRow name="主要作品：">{{detail.production}}</SimpleRow>
+        <SimpleRow name="主要作品：">
+          <span v-for="(p, i) in detail.production.split('\n')" :key="i">
+            {{p}}<br/>
+          </span>
+        </SimpleRow>
       </div>
     </main>
   </div>
@@ -41,6 +46,7 @@ export default {
     SimpleRow, SubTitle
   },
   mounted() {
+    window.scrollTo(0, 0)
     this.listenerFunc = (person) => {
       this.detail = person.detail
       this.person = person

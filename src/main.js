@@ -27,10 +27,6 @@ Vue.prototype.notify = function(msg) {
 }
 
 
-router.afterEach(() => {
-  window.scrollTo(0, 0)
-})
-
 new Vue({
   router,
   render: h => h(App)

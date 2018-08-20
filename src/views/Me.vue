@@ -1,11 +1,8 @@
 <template>
   <div class="g-me">
     <div class="m-login" v-if="!noLogin">
-      <Banner
-        :imagePath="person.header || require('../assets/demo_person2.png')"
-        :width="7.5"
-        :height="5.32"
-        :imageStyle="{width: '7.5rem', height: '7.5rem', filter: 'blur(10px)'}">
+      <UserBanner
+        :imagePath="person.header">
         <div class="m-user">
           <UserHeader :src="person.header" :width="1.6"/>
           <div class="u-info">
@@ -21,7 +18,7 @@
             </p>
           </div>
         </div>
-      </Banner>
+      </UserBanner>
       <main>
         <router-view></router-view>
       </main>
@@ -32,7 +29,7 @@
   </div>
 </template>
 <script>
-import Banner from '@/components/Banner'
+import UserBanner from '@/components/UserBanner'
 import UserHeader from '@/components/UserHeader'
 import NoLogin from '@/components/NoLogin'
 import { getMyInfo } from '../api'
@@ -46,8 +43,8 @@ export default {
         production: ''
       },
       person: {
-        header: require('../assets/demo_person.png'),
-        name: '电影人',
+        header: null,
+        name: '_',
         jobs: [],
         desc: '',
         productions: []
@@ -95,7 +92,7 @@ export default {
     }
   },
   components: {
-    Banner, UserHeader, NoLogin
+    UserBanner, UserHeader, NoLogin
   }
 }
 </script>

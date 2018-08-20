@@ -59,7 +59,7 @@ export default new Router({
       children: [
         {
           path: '',
-          name: 'me_index',
+          name: 'me',
           component: Me_Index
         },
         {

@@ -1,10 +1,7 @@
 <template>
   <div class="g-user">
-    <Banner
-      :imagePath="person.header || require('../assets/demo_person2.png')"
-      :width="7.5"
-      :height="5.32"
-      :imageStyle="{width: '7.5rem', height: '7.5rem', filter: 'blur(10px)'}">
+    <UserBanner
+      :imagePath="person.header">
       <div class="m-user">
         <UserHeader :src="person.header" :width="1.6"/>
         <div class="u-info">
@@ -20,12 +17,12 @@
           </p>
         </div>
       </div>
-    </Banner>
+    </UserBanner>
     <router-view></router-view>
   </div>
 </template>
 <script>
-import Banner from '@/components/Banner'
+import UserBanner from '@/components/UserBanner'
 import UserHeader from '@/components/UserHeader'
 import { getUserDetail } from '../api/index.js'
 export default {
@@ -39,7 +36,7 @@ export default {
       },
       person: {
         header: null,
-        name: '',
+        name: '_',
         jobs: [],
         desc: '',
         productions: [],
@@ -48,6 +45,7 @@ export default {
     }
   },
   async mounted() {
+    window.scrollTo(0, 0)
     this.id = this.$route.params.id;
     const result = await getUserDetail(this.id);
     if (result.code === 200) {
@@ -80,7 +78,7 @@ export default {
     }
   },
   components: {
-    Banner, UserHeader
+    UserBanner, UserHeader
   }
 }
 </script>

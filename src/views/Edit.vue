@@ -175,9 +175,11 @@ export default {
       const person = result.content
       this.person = {
         ...person,
-        desc: `${person.school} ${person.grade} ${person.major}`
       }
-      this.detail = person.detail
+      this.detail = {
+        ...person.detail,
+        production: person.detail.production
+      }
 
       this.person.jobs = this.person.jobs.filter(i => i.trim().length > 0).sort()
       this.person.productions = this.person.productions.filter(i => i.trim().length > 0).sort()

@@ -10,9 +10,6 @@
   <div>
     <router-link class="link-item" to="/message">我的消息</router-link>
   </div>
-  <div>
-    <router-link class="link-item" to="/setting">通用设置</router-link>
-  </div>
 </div>
 </template>
 <script>
