@@ -6,7 +6,7 @@
         :onSearch="this.onSearch"/>
     </div>
     <main class="m-list">
-      <SubTitle>中传电影创作人平台</SubTitle>
+      <SubTitle>电影创作人平台</SubTitle>
       <div class="u-person" v-for="person in persons" :key="person.id">
         <BlockRouter :to="`/user/${person.id}`">
           <SimpleInfo 

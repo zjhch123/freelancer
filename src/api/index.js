@@ -57,3 +57,15 @@ export function updateUserInfo(data) {
     credentials: 'include',
   }).then(res => res.json())
 }
+
+export function getUnreadMsgCount() {
+  return fetch('/api/user/me/unreadMsgCount', { credentials: 'include' }).then(res => res.json())
+}
+
+export function getMessages(page) {
+  return fetch(`/api/user/me/getMessages?page=${page}`).then(res => res.json())
+}
+
+export function readMessage(id) {
+  return fetch(`/api/user/me/readMessage?id=${id}`).then(res => res.json())
+}

@@ -153,7 +153,7 @@ export default {
           production: this.detail.production
         })
         if (result.code === 200) {
-          this.notify('修改成功')
+          this.notify('提交成功, 请等待审核')
         } else {
           console.log(result)
           this.notify('修改失败, 请检查')  

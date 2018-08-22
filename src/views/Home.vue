@@ -63,7 +63,7 @@ export default {
     const openId = this.$router.history.current.query.openId
     window.openId = openId
     if (openId !== undefined) {
-      Cookie.set('user_id', openId + '----freelancer_user')
+      Cookie.set('user_id', openId)
       this.$router.push({
         name: 'home',
         query: ''
