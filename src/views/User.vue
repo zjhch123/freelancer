@@ -60,8 +60,11 @@ export default {
       }
       this.detail = person.detail
       this.EventEmit.emit('user_launched', {...this.person, detail: {...this.detail}})
+
+      window.setUserShare(this.person)
     } else {
       // TODO handle error
+      this.notify('获取用户信息失败')
     }
   },
   methods: {

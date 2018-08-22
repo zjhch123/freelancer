@@ -2,9 +2,23 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import EventEmit from 'eventemitter3'
-// import VConsole from 'vconsole';
+import Wechat from './lib/share'
 
-// new VConsole();
+
+Wechat.launch()
+
+router.beforeEach((to, _, next) => {
+  switch (to.name) {
+    case 'home':
+    case 'search':
+    case 'creator':
+    case 'edit':
+    case 'message':
+      document.getElementById('share').src = require('./assets/share.jpg')
+      break
+  }
+  next();
+})
 
 Vue.config.productionTip = false
 

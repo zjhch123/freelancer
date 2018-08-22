@@ -184,6 +184,8 @@ export default {
       this.person.jobs = this.person.jobs.filter(i => i.trim().length > 0).sort()
       this.person.productions = this.person.productions.filter(i => i.trim().length > 0).sort()
       this.submitLoading = false
+
+      window.setUserShare(this.person)
     } else {
       switch (result.code) {
         case 401:

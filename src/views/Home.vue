@@ -4,7 +4,7 @@
       <Banner 
         :width="7.5"
         :height="5.28"
-        :imagePath="require('../assets/home-banner.png')">
+        :imagePath="require('../assets/home-banner.jpg')">
         <div class="m-logo">
           <p class="u-tlt">FREELANCER</p>
           <p class="u-sub">-中传电影创作人平台-</p>
@@ -50,6 +50,7 @@ import Cookie from 'js-cookie'
 export default {
   name: 'home',
   mounted() {
+    window.setNormalShare()
     this.initHotUser()
     this.initCount()
   },
@@ -64,10 +65,12 @@ export default {
     window.openId = openId
     if (openId !== undefined) {
       Cookie.set('user_id', openId)
-      this.$router.push({
-        name: 'home',
-        query: ''
-      })
+      setTimeout(() => {
+        this.$router.push({
+          name: 'home',
+          query: ''
+        })
+      }, 0)
     }
   },
   components: {

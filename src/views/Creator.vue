@@ -39,6 +39,7 @@ export default {
     }
   },
   async mounted() {
+    window.setNormalShare()
     this.listenerFunc = _.debounce(this.fetchNextPage, 200)
     window.addEventListener('scroll', this.listenerFunc) // 滚到底部的懒加载
 

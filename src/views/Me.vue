@@ -1,5 +1,6 @@
 <template>
   <div class="g-me">
+    <NewUserFlag v-if="person.userType === 1"/>
     <div class="m-login" v-if="!noLogin">
       <UserBanner
         :imagePath="person.header">
@@ -8,7 +9,7 @@
           <div class="u-info">
             <p class="name f-text-overflow">{{person.name}}</p>
             <p class="job f-text-overflow" v-if="hasJob">
-              {{person.jobs.join(' ')}}
+              {{(person.jobs || []).join(' ')}}
             </p>
             <p class="desc f-text-overflow" v-if="hasDesc">
               {{person.desc}}
@@ -32,6 +33,7 @@
 import UserBanner from '@/components/UserBanner'
 import UserHeader from '@/components/UserHeader'
 import NoLogin from '@/components/NoLogin'
+import NewUserFlag from '@/components/NewUserFlag'
 import { getMyInfo } from '../api'
 export default {
   data() {
@@ -67,12 +69,15 @@ export default {
       }
       this.detail = person.detail
       this.listenerFunc()
+
+      window.setUserShare(this.person)
     } else {
       switch (result.code) {
         case 401:
           this.noLogin = true
           break
         default:
+          this.notify('获取信息失败')
           // TODO
       }
     }
@@ -92,7 +97,7 @@ export default {
     }
   },
   components: {
-    UserBanner, UserHeader, NoLogin
+    UserBanner, UserHeader, NoLogin, NewUserFlag
   }
 }
 </script>

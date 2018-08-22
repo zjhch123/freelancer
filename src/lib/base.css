@@ -35,3 +35,4 @@ html { font-size: 14px; }
 :-ms-input-placeholder { color: #aaa; }
 input:-moz-placeholder { color: #aaa; }
 *:not(input, textarea) { -webkit-user-select: none; }
+.f-hide {display: none !important;}
