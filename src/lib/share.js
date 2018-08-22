@@ -1,47 +1,71 @@
 class Wechat {
   constructor() {
-    window.shareConfig = ({
-      title,
-      content,
-      url,
-      timeline_title,
-      imagePath,
-      successCb = () => {}
-    }) => {
-      wx.onMenuShareTimeline({
-        title: timeline_title,
-        link: url,
-        imgUrl: imagePath,
-        success: successCb,
-      });
-      wx.onMenuShareAppMessage({
-        title: title,
-        desc: content,
-        link: url,
-        imgUrl: imagePath,
-        type: 'link',
-        dataUrl: '',
-        success: successCb,
-      });
+    this.wxLoading = true
+    this.shareConfig = null
+
+    window.shareConfig = this.resetShareConfig.bind(this)
+    window.setNormalShare = this.setNormalShare.bind(this)
+    window.setUserShare = this.setUserShare.bind(this)
+  }
+
+  resetShareConfig({
+    title,
+    content,
+    url,
+    timeline_title,
+    imagePath,
+    successCb = () => {}
+  }) {
+    wx.onMenuShareTimeline({
+      title: timeline_title,
+      link: url,
+      imgUrl: imagePath,
+      success: successCb,
+    });
+    wx.onMenuShareAppMessage({
+      title: title,
+      desc: content,
+      link: url,
+      imgUrl: imagePath,
+      type: 'link',
+      dataUrl: '',
+      success: successCb,
+    });
+  }
+
+  setNormalShare() {
+    document.getElementById('share').src = require('../assets/share.jpg');
+    const src = document.getElementById('share').src
+    const config = {
+      title: 'FREELANCER-中传电影创作人平台',
+      content: '欢迎加入中传电影创作人资料库！',
+      timeline_title: 'FREELANCER-中传电影创作人平台，欢迎加入中传电影创作人资料库！',
+      url: window.location.href.split('#')[0],
+      imagePath: src,
     }
 
-    window.setNormalShare = () => {
-      window.shareConfig({
-        title: 'FREELANCER-中传电影创作人平台',
-        content: '欢迎加入中传电影创作人资料库！',
-        timeline_title: 'FREELANCER-中传电影创作人平台，欢迎加入中传电影创作人资料库！',
-        url: window.location.href.split('#')[0],
-        imagePath: document.getElementById('share').src.replace('https:', 'http:'),
-      });
+    if (this.wxLoading) {
+      this.shareConfig = config
+    } else {
+      this.resetShareConfig(config);
     }
-    window.setUserShare = (person) => {
-      window.shareConfig({
-        title: `${person.name} 中传电影创作人名片`,
-        content: '这是我的名片，期待合作！',
-        timeline_title: `${person.name} 中传电影创作人名片`,
-        url: window.location.href.split('#')[0] + `#/user/${person.id}`,
-        imagePath: person.header === null ? document.querySelector('.u-header').src : person.header.startsWith('http') ? person.header : `http://${window.location.host}${person.header}`,
-      });
+  }
+
+  setUserShare(person) {
+    document.getElementById('share2').src = require('../assets/demo_person.png');
+    const src = document.getElementById('share2').src
+    const config = {
+      title: `${person.name} 中传电影创作人名片`,
+      content: '这是我的名片，期待合作！',
+      timeline_title: `${person.name} 中传电影创作人名片`,
+      url: window.location.href.split('#')[0] + `#/user/${person.id}`,
+      imagePath: person.header === null ? src : person.header.startsWith('http') ? person.header.replace('https', 'http') : `http://${window.location.host}${person.header}`,
+    }
+
+    if (this.wxLoading) {
+      this.shareConfig = config
+    } else {
+      this.resetShareConfig(config);
     }
   }
 
@@ -72,6 +96,7 @@ class Wechat {
       jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'hideMenuItems'] // 必填，需要使用的JS接口列表
     });
     wx.ready(() => {
+      this.wxLoading = false
       wx.hideMenuItems({
         menuList: [
           "menuItem:share:qq",
@@ -84,13 +109,9 @@ class Wechat {
           "menuItem:share:email"
         ]
       });
-      window.shareConfig({
-        title: 'FREELANCER-中传电影创作人平台',
-        content: '欢迎加入中传电影创作人资料库！',
-        timeline_title: 'FREELANCER-中传电影创作人平台，欢迎加入中传电影创作人资料库！',
-        url: window.location.href.split('#')[0],
-        imagePath: require('../assets/share.jpg'),
-      });
+      if (this.shareConfig !== null) {
+        this.resetShareConfig(this.shareConfig)
+      }
     })
   }
 }
