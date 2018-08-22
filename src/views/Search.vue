@@ -69,10 +69,13 @@ export default {
       const windowHeight = window.innerHeight
 
       if (windowHeight + scrollHeight > 0.8 * totalHeight) {
-        this.getNextPageData()
+        this.getData(this.page + 1)
       }
     },
     async getData(page, count = this.count, callback = () => {}) {
+      if (page > this.totalPage) {
+        return;
+      }
       let result = null
       this.page = page
       result = await search(this.inputValue, page, count)
@@ -88,10 +91,6 @@ export default {
       } else {
         // TODO error handle
       }
-    },
-    getNextPageData() {
-      if (this.page === this.totalPage) return
-      this.getData(this.page + 1)
     },
   }
 }
