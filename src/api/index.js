@@ -63,9 +63,9 @@ export function getUnreadMsgCount() {
 }
 
 export function getMessages(page) {
-  return fetch(`/api/user/me/getMessages?page=${page}`).then(res => res.json())
+  return fetch(`/api/user/me/getMessages?page=${page}`, { credentials: 'include' }).then(res => res.json())
 }
 
 export function readMessage(id) {
-  return fetch(`/api/user/me/readMessage?id=${id}`).then(res => res.json())
+  return fetch(`/api/user/me/readMessage?id=${id}`, { credentials: 'include' }).then(res => res.json())
 }
