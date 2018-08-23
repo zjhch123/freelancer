@@ -1,6 +1,6 @@
 <template>
   <div class="u-nologin">
-    <p>请关注公众号并从公众号内进入电影人平台</p>
+    <p>请关注公众号并从公众号内进入电影创作人平台</p>
     <p>查看更多信息</p>
     <img :src="require('../assets/qrcode.jpg')" class="u-qr">
   </div>
