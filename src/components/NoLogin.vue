@@ -9,7 +9,7 @@
 .u-nologin {
   font-size: .3rem;
   .u-qr {
-    width: 3rem;
+    width: 5rem;
     margin-top: 1rem;
   }
 }

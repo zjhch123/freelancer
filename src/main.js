@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import EventEmit from 'eventemitter3'
 import Wechat from './lib/share'
-
+import 'fetch-polyfill'
 
 Wechat.launch()
 

@@ -142,11 +142,11 @@ export default {
         const result = await updateUserInfo({
           header: this.person.header,
           name: this.person.name,
-          jobs: this.person.jobs,
+          jobs: this.person.jobs.join('||'),
           school: this.person.school,
           major: this.person.major,
           grade: this.person.grade,
-          productions: this.person.productions,
+          productions: this.person.productions.join('||'),
           introduction: this.person.introduction,
           city: this.detail.city,
           job: this.detail.job,

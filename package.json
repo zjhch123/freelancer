@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "eventemitter3": "^3.1.0",
+    "fetch-polyfill": "^0.8.2",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.10",
     "vconsole": "^3.2.0",
