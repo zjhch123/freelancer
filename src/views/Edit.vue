@@ -129,6 +129,8 @@ export default {
             if (result.code === 200) {
               this.person.header = result.content
               this.uploadComponent = false
+            } else {
+              this.notify('上传失败, 请重试');
             }
           } catch(e) {
             console.log(e)
@@ -187,8 +189,8 @@ export default {
         production: person.detail.production
       }
 
-      this.person.jobs = this.person.jobs.filter(i => i.trim().length > 0).sort()
-      this.person.productions = this.person.productions.filter(i => i.trim().length > 0).sort()
+      this.person.jobs = this.person.jobs.filter(i => i.trim().length > 0)
+      this.person.productions = this.person.productions.filter(i => i.trim().length > 0)
       this.submitLoading = false
 
       window.setUserShare(this.person)

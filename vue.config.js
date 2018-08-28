@@ -5,14 +5,14 @@ module.exports = {
   devServer: {
     proxy: {
       // '/api': {
-      //   target: 'http://freelancer.hduzplus.xyz/',
+      //   target: 'http://127.0.0.1:7002/',
       //   changeOrigin: true,
       //   pathRewrite: {
       //     '^/api': '/api'
       //   }
       // },
       // '/upload': {
-      //   target: 'http://freelancer.hduzplus.xyz/',
+      //   target: 'http://127.0.0.1:7002/',
       //   changeOrigin: true,
       //   pathRewrite: {
       //     '^/upload': '/upload'
