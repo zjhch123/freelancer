@@ -1,8 +1,9 @@
 <template>
   <div class="u-nologin">
-    <p>请关注公众号并从公众号内进入电影创作人平台</p>
-    <p>查看更多信息</p>
-    <img :src="require('../assets/qrcode.jpg')" class="u-qr">
+    <p>1、请扫码关注公众号</p>
+    <p>2、点击公众号菜单栏底部“蓝社区”进入此平台</p>
+    <p>3、点击平台底部“我的-主页编辑”进行资料填写</p>
+    <img :src="require('../assets/qrcode.png')" class="u-qr">
   </div>
 </template>
 <style lang="scss" scoped>
@@ -10,7 +11,7 @@
   font-size: .3rem;
   .u-qr {
     width: 5rem;
-    margin-top: 1rem;
+    margin-top: .8rem;
   }
 }
 </style>

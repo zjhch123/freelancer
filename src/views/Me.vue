@@ -127,6 +127,6 @@ export default {
   }
 }
 .m-nologin {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 </style>

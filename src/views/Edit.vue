@@ -1,81 +1,86 @@
 <template>
   <div class="g-edit">
-    <main>
-      <SimpleRow className="u-row" name="个人照片">
-        <div class="flexable m-photo">
-          <div class="header">
-            <UserHeader 
-              :src="person.header"
-              :width="1.6"/>
+    <div v-if="!noLogin">
+      <main>
+        <SimpleRow className="u-row" name="个人照片">
+          <div class="flexable m-photo">
+            <div class="header">
+              <UserHeader 
+                :src="person.header"
+                :width="1.6"/>
+            </div>
+            <div class="upload">
+              <a href="javascript:;" class="upload-btn" @click="uploadComponent = true">上传</a>
+            </div>
           </div>
-          <div class="upload">
-            <a href="javascript:;" class="upload-btn" @click="uploadComponent = true">上传</a>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="姓名">
+          <div class="flexable">
+            <input type="text" class="u-input" v-model="person.name"/>
           </div>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="常驻城市">
+          <div class="flexable">
+            <input type="text" class="u-input" v-model="detail.city"/>
+          </div>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="院校专业">
+          <div class="flexable space">
+            <input type="text" class="u-input u-input1of3" placeholder="学校" v-model="person.school"/>
+            <input type="text" class="u-input u-input1of3" placeholder="年级" v-model="person.grade"/>
+            <input type="text" class="u-input u-input1of3" placeholder="专业" v-model="person.major"/>
+          </div>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="个人介绍">
+          <div class="flexable">
+            <textarea contenteditable="true" class="u-input" v-model="person.introduction"></textarea>
+          </div>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="主要职业">
+          <div class="flexable space">
+            <input type="text" class="u-input u-input1of3" v-model="person.jobs[0]"/>
+            <input type="text" class="u-input u-input1of3" v-model="person.jobs[1]"/>
+            <input type="text" class="u-input u-input1of3" v-model="person.jobs[2]"/>
+          </div>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="从事职业">
+          <div class="flexable">
+            <input type="text" class="u-input" v-model="detail.job"/>
+          </div>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="代表作品">
+          <div class="flexable space">
+            <input type="text" class="u-input u-input1of3" v-model="person.productions[0]"/>
+            <input type="text" class="u-input u-input1of3" v-model="person.productions[1]"/>
+            <input type="text" class="u-input u-input1of3" v-model="person.productions[2]"/>
+          </div>
+        </SimpleRow>
+        <SimpleRow className="u-row" name="主要作品">
+          <div class="flexable">
+            <textarea class="u-input" v-model="detail.production"></textarea>
+          </div>
+        </SimpleRow>
+        <div class="u-save">
+          <a href="javascript:;" class="save-btn" @click="submit">保存</a>
         </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="姓名">
-        <div class="flexable">
-          <input type="text" class="u-input" v-model="person.name"/>
+      </main>
+      <div class="u-upload-component" v-if="uploadComponent">
+        <a href="javascript:;" @click="uploadComponent = false" class="close-modal">关闭</a>
+        <div class="u-upload">
+          <Croppa 
+            :placeholder="'点击上传新头像'"
+            :placeholder-font-size="16"
+            :canvas-color="'white'"
+            :show-remove-button="false"
+            :prevent-white-space="true"
+            v-model="imageOptions"></Croppa>
+          <a href="javascript:;" class="btn cancel" @click="clearImage">重新选择</a>
+          <a href="javascript:;" class="btn submit" @click="uploadImage">提交</a>
         </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="常驻城市">
-        <div class="flexable">
-          <input type="text" class="u-input" v-model="detail.city"/>
-        </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="院校专业">
-        <div class="flexable space">
-          <input type="text" class="u-input u-input1of3" placeholder="学校" v-model="person.school"/>
-          <input type="text" class="u-input u-input1of3" placeholder="年级" v-model="person.grade"/>
-          <input type="text" class="u-input u-input1of3" placeholder="专业" v-model="person.major"/>
-        </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="个人介绍">
-        <div class="flexable">
-          <textarea contenteditable="true" class="u-input" v-model="person.introduction"></textarea>
-        </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="主要职业">
-        <div class="flexable space">
-          <input type="text" class="u-input u-input1of3" v-model="person.jobs[0]"/>
-          <input type="text" class="u-input u-input1of3" v-model="person.jobs[1]"/>
-          <input type="text" class="u-input u-input1of3" v-model="person.jobs[2]"/>
-        </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="从事职业">
-        <div class="flexable">
-          <input type="text" class="u-input" v-model="detail.job"/>
-        </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="代表作品">
-        <div class="flexable space">
-          <input type="text" class="u-input u-input1of3" v-model="person.productions[0]"/>
-          <input type="text" class="u-input u-input1of3" v-model="person.productions[1]"/>
-          <input type="text" class="u-input u-input1of3" v-model="person.productions[2]"/>
-        </div>
-      </SimpleRow>
-      <SimpleRow className="u-row" name="主要作品">
-        <div class="flexable">
-          <textarea class="u-input" v-model="detail.production"></textarea>
-        </div>
-      </SimpleRow>
-      <div class="u-save">
-        <a href="javascript:;" class="save-btn" @click="submit">保存</a>
       </div>
-    </main>
-    <div class="u-upload-component" v-if="uploadComponent">
-      <a href="javascript:;" @click="uploadComponent = false" class="close-modal">关闭</a>
-      <div class="u-upload">
-        <Croppa 
-          :placeholder="'点击上传新头像'"
-          :placeholder-font-size="16"
-          :canvas-color="'white'"
-          :show-remove-button="false"
-          :prevent-white-space="true"
-          v-model="imageOptions"></Croppa>
-        <a href="javascript:;" class="btn cancel" @click="clearImage">重新选择</a>
-        <a href="javascript:;" class="btn submit" @click="uploadImage">提交</a>
-      </div>
+    </div>
+    <div v-if="noLogin" class="m-nologin">
+      <NoLogin/>
     </div>
   </div>
 </template>
@@ -83,6 +88,7 @@
 import Croppa from 'vue-croppa'
 import SimpleRow from '@/components/SimpleRow'
 import UserHeader from '@/components/UserHeader'
+import NoLogin from '@/components/NoLogin'
 import { getMyInfo, uploadImage, updateUserInfo } from '../api'
 export default {
   data() {
@@ -197,7 +203,7 @@ export default {
     }
   },
   components: {
-    SimpleRow, UserHeader, Croppa: Croppa.component
+    SimpleRow, UserHeader, Croppa: Croppa.component, NoLogin
   }
 }
 </script>
@@ -206,6 +212,9 @@ export default {
   padding-top: .65rem;
   margin: auto;
   padding-bottom: 1rem;
+}
+.m-nologin {
+  margin-top: 1rem;
 }
 .flexable {
   display: flex;

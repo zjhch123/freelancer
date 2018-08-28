@@ -69,3 +69,7 @@ export function getMessages(page) {
 export function readMessage(id) {
   return fetch(`/api/user/me/readMessage?id=${id}`, { credentials: 'include' }).then(res => res.json())
 }
+
+export function getUserType() {
+  return fetch(`/api/user/me/getUserType`, { credentials: 'include' }).then(res => res.json())
+}

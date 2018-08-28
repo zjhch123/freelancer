@@ -1,5 +1,6 @@
 <template>
   <div class="g-home">
+    <NewUserFlag v-if="userType === 1"/>
     <div class="m-banner">
       <Banner 
         :width="7.5"
@@ -43,9 +44,10 @@
 import Banner from '@/components/Banner.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import SimpleInfo from '@/components/SimpleInfo.vue'
+import NewUserFlag from '@/components/NewUserFlag.vue'
 import SubTitle from '@/components/SubTitle.vue'
 import BlockRouter from '@/components/BlockRouter.vue'
-import { getHotUser, getUserCount } from '../api/'
+import { getHotUser, getUserCount, getUserType } from '../api/'
 import Cookie from 'js-cookie'
 export default {
   name: 'home',
@@ -53,11 +55,13 @@ export default {
     window.setNormalShare()
     this.initHotUser()
     this.initCount()
+    this.initUserType()
   },
   data() {
     return {
       persons: [],
-      content: 0
+      content: 0,
+      userType: 0,
     }
   },
   created() {
@@ -74,7 +78,7 @@ export default {
     }
   },
   components: {
-    Banner, SearchBar, SimpleInfo, SubTitle, BlockRouter
+    Banner, SearchBar, SimpleInfo, SubTitle, BlockRouter, NewUserFlag
   },
   methods: {
     async initHotUser() {
@@ -95,6 +99,14 @@ export default {
         this.content = result.content
       } else {
         // TODO error handler
+      }
+    },
+    async initUserType() {
+      const result = await getUserType()
+      if (result.code === 200) {
+        this.userType = result.content
+      } else if (result.code === 401) {
+        this.userType = 1
       }
     },
     search(val) {

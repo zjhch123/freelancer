@@ -19,14 +19,14 @@ module.exports = {
       //   }
       // }
       '/api': {
-        target: 'http://127.0.0.1:7001/',
+        target: 'https://freelancer.lance-studios.com/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
         }
       },
       '/upload': {
-        target: 'http://127.0.0.1:7001/',
+        target: 'https://freelancer.lance-studios.com/',
         changeOrigin: true,
         pathRewrite: {
           '^/upload': '/upload'
