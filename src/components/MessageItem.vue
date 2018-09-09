@@ -45,6 +45,11 @@ export default {
     display: block;
   }
   .content {
+    width: 6rem;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     padding-left: .22rem;
     font-size: .24rem;
     color: #7b7b7b;
